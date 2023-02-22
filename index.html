@@ -20,44 +20,72 @@
             width: 100%;
             text-align: center;
         }
-        .bebek-tengah .bebek-responsive {
-            max-width: 200px;
-            height: auto;
+        .bebek-tengah img {
+            max-height: 250px;
+            width: auto;
         }
     </style>
 </head>
 <body>
     <!-- By Andreas Pandu P -->
-    <div class="bebek-tengah">
-        <img src="bebek/layer-1.png" id="animation" class="bebek-responsive" />
-    </div>
+    <div id="animation" class="bebek-tengah"></div>
 
     <script>
         window.onload = function()
         {
-            const framesGambar = [];
             const warnaBg = ['e74856', '0078D7', '0099bc', 'ff8c00', '8e8cd8'];
             
+            // Cara animasinya bukan perframe terus" ganti src
+            // Tapi lewat display none/inline-block
+            // Kalau perframe lewat src, bakal ngespam server
             // masukin gambar per frame
             for (let i = 1; i <= 15; i++)
-                framesGambar.push('layer-' + i + '.png');
-
-            // Ngejalanin framenya
-            let gantiFrame = 0;
-            const idGambar = document.getElementById('animation');
-            setInterval(() =>
             {
-                gantiFrame = (gantiFrame + 1) % framesGambar.length;
-                idGambar.src = 'bebek/' + framesGambar[gantiFrame];
-            }, 70);
+                const image = document.createElement('img')
+                image.src = 'bebek/layer-'+i+'.png';
+                image.id = i;
+                image.className = 'img-frame'
 
-            // Biar warnanya gonta-ganti
-            let gantiWarnaBg = 0;
-            setInterval(() =>
+                if (i != 1)
+                    image.style.display = 'none';
+                else
+                    image.style.display = 'inline-block'
+
+                document.getElementById("animation").append(image)      
+            }
+
+            setTimeout(() =>
             {
-                gantiWarnaBg = (gantiWarnaBg + 1) % warnaBg.length;
-                document.body.style.background = "#"+warnaBg[gantiWarnaBg];
-            }, 300);
+                // Ngejalanin framenya
+                let gantiFrame = 0;
+                let displayFrame = ''
+                const imgFrame = document.getElementsByClassName('img-frame');
+                const imgFrameArr = [...imgFrame];
+
+                setInterval(() =>
+                {
+                    gantiFrame = (gantiFrame + 1) % 15;
+                    for (let i = 1; i <= 15; i++)
+                    {
+                        const getIdFrame = imgFrameArr[i - 1].getAttribute('id')
+
+                        if ((gantiFrame + 1) == getIdFrame)
+                            displayFrame = 'inline-block';
+                        else
+                            displayFrame = 'none'
+
+                        document.getElementById(i).style.display = displayFrame
+                    }
+                }, 70);
+
+                // Biar warnanya gonta-ganti
+                let gantiWarnaBg = 0;
+                setInterval(() =>
+                {
+                    gantiWarnaBg = (gantiWarnaBg + 1) % warnaBg.length;
+                    document.body.style.background = "#"+warnaBg[gantiWarnaBg];
+                }, 300);
+            }, 1000);
         }
     </script>
     <!-- -->
