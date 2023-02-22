@@ -28,21 +28,23 @@
 </head>
 <body>
     <!-- By Andreas Pandu P -->
-    <div id="animation" class="bebek-tengah"></div>
+    <div id="animasi-bebek" class="bebek-tengah"></div>
 
     <script>
         window.onload = function()
         {
+            const totalLayer = 15;
             const warnaBg = ['e74856', '0078D7', '0099bc', 'ff8c00', '8e8cd8'];
             
             // Cara animasinya bukan perframe terus" ganti src
             // Tapi lewat display none/inline-block
             // Kalau perframe lewat src, bakal ngespam server
+
             // masukin gambar per frame
-            for (let i = 1; i <= 15; i++)
+            for (let i = 1; i <= totalLayer; i++)
             {
                 const image = document.createElement('img')
-                image.src = 'bebek/layer-'+i+'.png';
+                image.src = 'bebek/layer-' +i+ '.png';
                 image.id = i;
                 image.className = 'img-frame'
 
@@ -51,30 +53,31 @@
                 else
                     image.style.display = 'inline-block'
 
-                document.getElementById("animation").append(image)      
+                document.getElementById("animasi-bebek").append(image)      
             }
 
             setTimeout(() =>
             {
                 // Ngejalanin framenya
                 let gantiFrame = 0;
-                let displayFrame = ''
+                let displayFrame = '';
+                
                 const imgFrame = document.getElementsByClassName('img-frame');
                 const imgFrameArr = [...imgFrame];
 
                 setInterval(() =>
                 {
-                    gantiFrame = (gantiFrame + 1) % 15;
-                    for (let i = 1; i <= 15; i++)
+                    gantiFrame = (gantiFrame + 1) % totalLayer;
+                    for (let i = 1; i <= totalLayer; i++)
                     {
                         const getIdFrame = imgFrameArr[i - 1].getAttribute('id')
 
                         if ((gantiFrame + 1) == getIdFrame)
                             displayFrame = 'inline-block';
                         else
-                            displayFrame = 'none'
+                            displayFrame = 'none';
 
-                        document.getElementById(i).style.display = displayFrame
+                        document.getElementById(i).style.display = displayFrame;
                     }
                 }, 45);
 
@@ -83,9 +86,9 @@
                 setInterval(() =>
                 {
                     gantiWarnaBg = (gantiWarnaBg + 1) % warnaBg.length;
-                    document.body.style.background = "#"+warnaBg[gantiWarnaBg];
+                    document.body.style.background = "#" + warnaBg[gantiWarnaBg];
                 }, 300);
-            }, 1000);
+            }, 800);
         }
     </script>
     <!-- -->
