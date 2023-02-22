@@ -46,14 +46,14 @@
                 const image = document.createElement('img')
                 image.src = 'bebek/layer-' +i+ '.png';
                 image.id = i;
-                image.className = 'img-frame'
+                image.className = 'img-frame';
 
                 if (i != 1)
                     image.style.display = 'none';
                 else
-                    image.style.display = 'inline-block'
+                    image.style.display = 'inline-block';
 
-                document.getElementById("animasi-bebek").append(image)      
+                document.getElementById("animasi-bebek").append(image);   
             }
 
             setTimeout(() =>
@@ -61,7 +61,7 @@
                 // Ngejalanin framenya
                 let gantiFrame = 0;
                 let displayFrame = '';
-                
+
                 const imgFrame = document.getElementsByClassName('img-frame');
                 const imgFrameArr = [...imgFrame];
 
@@ -70,7 +70,7 @@
                     gantiFrame = (gantiFrame + 1) % totalLayer;
                     for (let i = 1; i <= totalLayer; i++)
                     {
-                        const getIdFrame = imgFrameArr[i - 1].getAttribute('id')
+                        const getIdFrame = imgFrameArr[i - 1].getAttribute('id');
 
                         if ((gantiFrame + 1) == getIdFrame)
                             displayFrame = 'inline-block';
