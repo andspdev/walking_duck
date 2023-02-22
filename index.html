@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bebek Jalan</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #e74856
+        }
+        .bebek-tengah {
+            position: absolute; 
+            top: 50%; 
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 300px;
+            width: 100%;
+            text-align: center;
+        }
+        .bebek-tengah .bebek-responsive {
+            max-width: 200px;
+            height: auto;
+        }
+    </style>
+</head>
+<>
+    <!-- By Andreas Pandu P -->
+    <div class="bebek-tengah">
+        <img src="bebek/layer-1.png" id="animation" class="bebek-responsive" />
+    </div>
+
+    <script>
+        window.onload = function()
+        {
+            const framesGambar = [];
+            const warnaBg = ['e74856', '0078D7', '0099bc', 'ff8c00', '8e8cd8'];
+            
+            // masukin gambar per frame
+            for (let i = 1; i <= 15; i++)
+                framesGambar.push('layer-' + i + '.png');
+
+            // Ngejalanin framenya
+            let gantiFrame = 0;
+            const idGambar = document.getElementById('animation');
+            setInterval(() =>
+            {
+                gantiFrame = (gantiFrame + 1) % framesGambar.length;
+                idGambar.src = 'bebek/' + framesGambar[gantiFrame];
+            }, 70);
+
+            // Biar warnanya gonta-ganti
+            let gantiWarnaBg = 0;
+            setInterval(() =>
+            {
+                gantiWarnaBg = (gantiWarnaBg + 1) % warnaBg.length;
+                document.body.style.background = "#"+warnaBg[gantiWarnaBg];
+            }, 300);
+        }
+    </script>
+    <!-- -->
+</body>
+</html>
